@@ -23,23 +23,23 @@ class Ship:
         #Movement
         self.moveRight = False
         self.moveLeft = False
-        self.moveUp = False
-        self.moveDown = False
+        #self.moveUp = False
+        #self.moveDown = False
 
     def update(self):
-        #update ship position
-        if self.moveRight:
+        #update ship position and keep it inbounds of screen 
+        if self.moveRight and self.rect.right < self.screenRect.right:
             self.x += self.settings.shipSpeed
-        if self.moveLeft:
+        if self.moveLeft and self.rect.left > 0:
             self.x -= self.settings.shipSpeed
-        if self.moveUp:
-            self.y += self.settings.shipSpeed
-        if self.moveDown:
-            self.y -= self.settings.shipSpeed
+        # if self.moveUp and self.rect.top > 0 :
+        #     self.y -= self.settings.shipSpeed
+        # if self.moveDown and self.rect.bottom < self.screenRect.top:
+        #     self.y += self.settings.shipSpeed
 
         #update rectable objext from self.x (update the value and send it back)
         self.rect.x = self.x
-        self.rect.y = self.y
+        #self.rect.y = self.y
 
 
     def blitme(self):
