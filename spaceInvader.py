@@ -24,6 +24,7 @@ class spaceInvader:
         while True:
             #Keybord and mouse events
             self._checkEvents()
+            self.ship.update()
             self._updateScreen()      
         
     def _checkEvents(self):
@@ -32,6 +33,31 @@ class spaceInvader:
                 #Executed when we close the game
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                     self._checkKeyDownEvents(event)
+                elif event.type == pygame.KEYUP:
+                     self._checkKeyUpEvents(event)
+
+                #Keydown/pressdown Keyup/letgo
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moveRight = True
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moveLeft = True
+                    elif event.key == pygame.K_UP:
+                         self.ship.moveUp = True
+                    elif event.key == pygame.K_DOWN:
+                         self.ship.moveDown = True
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moveRight = False
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moveLeft = False
+                    elif event.key == pygame.K_UP:
+                        self.ship.moveUp = False
+                    elif event.key == pygame.K_DOWN:
+                        self.ship.moveDown = False
+                    
 
     def _updateScreen(self):
          #Fills background color after each iteration
