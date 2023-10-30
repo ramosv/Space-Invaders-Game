@@ -1,5 +1,7 @@
 import pygame
-#from settings import Settings
+
+# from settings import Settings
+
 
 class Ship:
     # SpaceShip management and features
@@ -8,26 +10,26 @@ class Ship:
         self.screenRect = siGame.screen.get_rect()
         self.settings = siGame.settings
 
-        #Loading image and get rectangle of image
+        # Loading image and get rectangle of image
         self.image = pygame.image.load("images/ship.bmp")
         self.rect = self.image.get_rect()
-        #self.bgColor = self.Settings.bgcolor()
+        # self.bgColor = self.Settings.bgcolor()
 
-        #Positioning ship at the bottom center of screen
+        # Positioning ship at the bottom center of screen
         self.rect.midbottom = self.screenRect.midbottom
 
-        #Value for speed
+        # Value for speed
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
-        
-        #Movement
+
+        # Movement
         self.moveRight = False
         self.moveLeft = False
-        #self.moveUp = False
-        #self.moveDown = False
+        # self.moveUp = False
+        # self.moveDown = False
 
     def update(self):
-        #update ship position and keep it inbounds of screen 
+        # update ship position and keep it inbounds of screen
         if self.moveRight and self.rect.right < self.screenRect.right:
             self.x += self.settings.shipSpeed
         if self.moveLeft and self.rect.left > 0:
@@ -37,11 +39,14 @@ class Ship:
         # if self.moveDown and self.rect.bottom < self.screenRect.top:
         #     self.y += self.settings.shipSpeed
 
-        #update rectable objext from self.x (update the value and send it back)
+        # update rectable objext from self.x (update the value and send it back)
         self.rect.x = self.x
-        #self.rect.y = self.y
-
+        # self.rect.y = self.y
 
     def blitme(self):
         # Draw ship
         self.screen.blit(self.image, self.rect)
+
+    def centerShip(self):
+        self.rect.midbottom = self.screenRect.midbottom
+        self.x = float(self.rect.x)
