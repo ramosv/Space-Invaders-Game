@@ -6,3 +6,10 @@ At the start of chapter 12, we start building this Space Invader Style game usin
 
 Project plan
 Player will control a rocket shit that moves left to right with the capability of shooting
+
+Screenshots
+![image](screenshots\Screenshot (3).png "Start Game")
+![image](screenshots\Screenshot (4).png "Game")
+![image](screenshots\Screenshot (5).png "Game")
+![image](screenshots\Screenshot (6).png "Game")
+![image](screenshots\Screenshot (7).png "Game")

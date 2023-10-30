@@ -7,6 +7,7 @@ from spaceShip import Ship
 from bullet import Bullet
 from alien import Alien
 from gameStats import GameStats
+from button import Button
 
 
 # Main class that manages the game
@@ -33,6 +34,9 @@ class spaceInvader:
 
         # Creating the fleet of aliens
         self._createFleet()
+
+        # Instance of play button
+        self.playButton = Button(self, "Start Game")
 
         # Background color
         self.bgColor = self.settings.bgColor
@@ -63,6 +67,14 @@ class spaceInvader:
             elif event.type == pygame.KEYUP:
                 # Key release
                 self._checkKeyUpEvents(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                self._checkPlayButton(mousePos)
+
+    def _checkPlayButton(self, mousePos):
+        # Start game when player click button
+        if self.playButton.rect.collidepoint(mousePos):
+            self.stats.gameActive = True
 
     def _checkKeyDownEvents(self, event):
         if event.key == pygame.K_RIGHT:
@@ -207,6 +219,10 @@ class spaceInvader:
         for bullet in self.bullets.sprites():
             bullet.drawBullet()
         self.aliens.draw(self.screen)
+
+        # Draw the play button if the game is inactive
+        if not self.stats.gameActive:
+            self.playButton.drawButton()
 
         # Update the screen with new elements and updates
         pygame.display.flip()
