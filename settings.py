@@ -13,7 +13,7 @@ class Settings:
         self.shipLimit = 3
 
         # Bullets
-        self.bulletWidth = 5000.0
+        self.bulletWidth = 5.0
         self.bulletHeight = 8.0
         self.bulletColor = (60, 60, 60)
 
