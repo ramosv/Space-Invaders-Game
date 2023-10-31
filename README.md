@@ -8,8 +8,8 @@ Project plan
 Player will control a rocket shit that moves left to right with the capability of shooting
 
 Screenshots
-![image](screenshots/Screenshot%20(8).png "Start Game")
-![image](screenshots//Screenshot%20(9).png "Game")
-![image](screenshots/Screenshot%20(10).png "Game")
-![image](screenshots/Screenshot%20(11).png "Game")
-![image](screenshots/Screenshot%20(12).png "Game")
+![image](Screenshots/Screenshot%20(8).png "Start Game")
+![image](Screenshots/Screenshot%20(9).png "Game")
+![image](Screenshots/Screenshot%20(10).png "Game")
+![image](Screenshots/Screenshot%20(11).png "Game")
+![image](Screenshots/Screenshot%20(12).png "Game")
