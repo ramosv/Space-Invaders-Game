@@ -8,6 +8,7 @@ from bullet import Bullet
 from alien import Alien
 from gameStats import GameStats
 from button import Button
+from scoreboard import ScoreBoard
 
 
 # Main class that manages the game
@@ -25,6 +26,9 @@ class spaceInvader:
 
         # Create an instace to store game statistics
         self.stats = GameStats(self)
+        self.scoreBoard = ScoreBoard(self)
+
+        # Highscore is never reset
 
         self.ship = Ship(self)
         # instanciate bullets you can think of sprite.group() as an array of bullet objects
@@ -73,8 +77,26 @@ class spaceInvader:
 
     def _checkPlayButton(self, mousePos):
         # Start game when player click button
-        if self.playButton.rect.collidepoint(mousePos):
+        buttonClicked = self.playButton.rect.collidepoint(mousePos)
+        if buttonClicked and not self.stats.gameActive:
+            ##Reset game settings and stats
+            self.settings.dynamicSettings()
+            self.stats.resetStats()
             self.stats.gameActive = True
+            self.scoreBoard.prepScore()
+            self.scoreBoard.prepLevel()
+            self.scoreBoard.prepShips()
+
+            # Clear screen (aliens and bullets)
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # Create a fresh fleet
+            self._createFleet()
+            self.ship.centerShip()
+
+            # Hide mouse
+            pygame.mouse.set_visible(False)
 
     def _checkKeyDownEvents(self, event):
         if event.key == pygame.K_RIGHT:
@@ -129,10 +151,22 @@ class spaceInvader:
         # Collion detection return a dict with items from two different sprite groups that have collided
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
+        if collisions:
+            for aliens in collisions.values():
+                # awarding points for each alien that is hit
+                self.stats.score += self.settings.alienPoints * len(aliens)
+            self.scoreBoard.prepScore()
+            self.scoreBoard.checkHighScore()
+
         if not self.aliens:
             # New fleet if current is destryed
             self.bullets.empty()
             self._createFleet()
+            self.settings.increaseSpeed()
+
+            # Increase level
+            self.stats.level += 1
+            self.scoreBoard.prepLevel()
 
     def _updateAliens(self):
         self._checkFleetEdges()
@@ -149,6 +183,7 @@ class spaceInvader:
         # decrement ships
         if self.stats.shipsLeft > 0:
             self.stats.shipsLeft -= 1
+            self.scoreBoard.prepShips()
 
             # Clear the screen
             self.aliens.empty()
@@ -162,6 +197,7 @@ class spaceInvader:
             sleep(0.5)
         else:
             self.stats.gameActive = False
+            pygame.mouse.set_visible(True)
 
     def _checkAliensBottom(self):
         screenRect = self.screen.get_rect()
@@ -219,6 +255,9 @@ class spaceInvader:
         for bullet in self.bullets.sprites():
             bullet.drawBullet()
         self.aliens.draw(self.screen)
+
+        # Draw score info
+        self.scoreBoard.showScore()
 
         # Draw the play button if the game is inactive
         if not self.stats.gameActive:

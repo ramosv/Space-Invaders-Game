@@ -1,11 +1,13 @@
 import pygame
+from pygame.sprite import Sprite
 
 # from settings import Settings
 
 
-class Ship:
+class Ship(Sprite):
     # SpaceShip management and features
     def __init__(self, siGame):
+        super().__init__()
         self.screen = siGame.screen
         self.screenRect = siGame.screen.get_rect()
         self.settings = siGame.settings
@@ -20,7 +22,7 @@ class Ship:
 
         # Value for speed
         self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
+        # self.y = float(self.rect.y)
 
         # Movement
         self.moveRight = False
